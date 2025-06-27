@@ -21,6 +21,7 @@ const randomColorToggler = document.querySelector('#toggle')
 randomColorToggler.addEventListener('change', function () {
     isRandomColor = !isRandomColor
     darkenColorToggler.checked = false
+    isDarkenColor = false
 })
 
 /**
