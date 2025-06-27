@@ -25,6 +25,8 @@ header h1 {
 }
 
 .main {
+  margin: auto;
+  max-width: 1600px;
   margin-top: 96px;
   display: flex;
   justify-content: space-between;

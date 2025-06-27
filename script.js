@@ -1,25 +1,38 @@
+var isRandomColor = false
+var isDarkenColor = false
+const containerSize = 850
+
+/**
+ * @type {HTMLElement}
+ */
 const container = document.querySelector('.container')
-const button = document.querySelector('#btn').addEventListener('click', handleSubmit)
+
+/**
+ * @type {HTMLButtonElement}
+ */
+const button = document
+    .querySelector('#btn')
+    .addEventListener('click', handleSubmit)
+
 /**
  * @type {HTMLInputElement}
  */
 const randomColorToggler = document.querySelector('#toggle')
-const darkenColorToggler = document.querySelector('#toggle-darken')
 randomColorToggler.addEventListener('change', function () {
     isRandomColor = !isRandomColor
     darkenColorToggler.checked = false
 })
+
+/**
+ * @type {HTMLInputElement}
+ */
+const darkenColorToggler = document.querySelector('#toggle-darken')
 darkenColorToggler.addEventListener('change', function () {
     isDarkenColor = !isDarkenColor
     randomColorToggler.checked = false
+    isRandomColor = false
 })
-function toggle(toggler) {
 
-}
-var isRandomColor = false
-var isDarkenColor = false
-const containerSize = 850
-var squares = []
 initGrid(16)
 
 /**
@@ -33,8 +46,11 @@ function changeColor(e) {
     ${Math.floor(Math.random() * 255)}, 
     ${Math.floor(Math.random() * 255)})`
     } else if (isDarkenColor) {
-        e.target.style.backgroundColor = "rgb(41, 163, 131)"
+        console.log(e.target);
 
+        var count = parseFloat(e.target.dataset['count']) + 0.1
+        e.target.style.backgroundColor = `rgb(41, 163, 131, ${count})`
+        e.target.dataset['count'] = count
     }
     else {
         e.target.style.backgroundColor = " #29A383"
@@ -55,9 +71,9 @@ function initGrid(squareNb) {
         square.classList.add('item')
         square.style.width = containerSize / squareNb + "px"
         square.style.height = containerSize / squareNb + "px"
-        squares.push(square)
+        square.addEventListener('mouseover', changeColor)
+        square.dataset['count'] = 0
         container.append(square)
         container.style.width = `${containerSize}px`
     }
-    squares.map(square => square.addEventListener('mouseover', changeColor))
 }
