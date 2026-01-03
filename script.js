@@ -1,80 +1,86 @@
-var isRandomColor = false
-var isDarkenColor = false
-const containerSize = 850
+var isRandomColor = false;
+var isDarkenColor = false;
 
 /**
  * @type {HTMLElement}
  */
-const container = document.querySelector('.container')
-
+const container = document.querySelector(".container");
+const windowSize = window.innerWidth - 300;
+container.style.width = windowSize;
 /**
  * @type {HTMLButtonElement}
  */
 const button = document
-    .querySelector('#btn')
-    .addEventListener('click', handleSubmit)
+  .querySelector("#btn")
+  .addEventListener("click", handleSubmit);
 
 /**
  * @type {HTMLInputElement}
  */
-const randomColorToggler = document.querySelector('#toggle')
-randomColorToggler.addEventListener('change', function () {
-    isRandomColor = !isRandomColor
-    darkenColorToggler.checked = false
-    isDarkenColor = false
-})
+const randomColorToggler = document.querySelector("#toggle");
+randomColorToggler.addEventListener("change", function () {
+  isRandomColor = !isRandomColor;
+  darkenColorToggler.checked = false;
+  isDarkenColor = false;
+});
 
 /**
  * @type {HTMLInputElement}
  */
-const darkenColorToggler = document.querySelector('#toggle-darken')
-darkenColorToggler.addEventListener('change', function () {
-    isDarkenColor = !isDarkenColor
-    randomColorToggler.checked = false
-    isRandomColor = false
-})
+const darkenColorToggler = document.querySelector("#toggle-darken");
+darkenColorToggler.addEventListener("change", function () {
+  isDarkenColor = !isDarkenColor;
+  randomColorToggler.checked = false;
+  isRandomColor = false;
+});
 
-initGrid(16)
+initGrid(4);
 
 /**
- * 
- * @param {*} e 
+ *
+ * @param {*} e
  */
 function changeColor(e) {
-    if (isRandomColor) {
-        e.target.style.backgroundColor = `rgb(
+  if (isRandomColor) {
+    e.target.style.backgroundColor = `rgb(
     ${Math.floor(Math.random() * 255)}, 
     ${Math.floor(Math.random() * 255)}, 
-    ${Math.floor(Math.random() * 255)})`
-    } else if (isDarkenColor) {
-        console.log(e.target);
+    ${Math.floor(Math.random() * 255)})`;
+  } else if (isDarkenColor) {
+    console.log(e.target);
 
-        var count = parseFloat(e.target.dataset['count']) + 0.1
-        e.target.style.backgroundColor = `rgb(41, 163, 131, ${count})`
-        e.target.dataset['count'] = count
-    }
-    else {
-        e.target.style.backgroundColor = " #29A383"
-    }
+    var count = parseFloat(e.target.dataset["count"]) + 0.1;
+    e.target.style.backgroundColor = `rgb(0, 0, 0, ${count})`;
+    e.target.dataset["count"] = count;
+  } else {
+    e.target.style.backgroundColor = " #29A383";
+  }
 }
 function handleSubmit() {
-    var squareNumber = parseInt(prompt("Combien de carré ?"))
-    initGrid(squareNumber)
+  var squareNumber = parseInt(prompt("Combien de carré ?"));
+  initGrid(squareNumber);
 }
 function initGrid(squareNb) {
-    container.replaceChildren()
-    squares = []
-    if (squareNb > 100) {
-        return container.append(document.createElement('p').innerText = "Nombre trop grand!")
+  container.replaceChildren();
+  if (squareNb > 100) {
+    return container.append(
+      (document.createElement("p").innerText = "Nombre trop grand!")
+    );
+  }
+  for (let i = 0; i < squareNb; i++) {
+    const row = document.createElement("div");
+    row.classList.add("row");
+    for (let j = 0; j < squareNb; j++) {
+      const square = document.createElement("div");
+      square.dataset["count"] = 0;
+      square.addEventListener("mouseenter", changeColor);
+      square.addEventListener("touchmove", changeColor);
+      square.classList.add("item");
+      row.appendChild(square);
     }
-    for (let i = 0; i < squareNb * squareNb; i++) {
-        var square = document.createElement('div')
-        square.classList.add('item')
-        square.style.width = containerSize / squareNb + "px"
-        square.style.height = containerSize / squareNb + "px"
-        square.addEventListener('mouseover', changeColor)
-        square.dataset['count'] = 0
-        container.append(square)
-        container.style.width = `${containerSize}px`
-    }
+    container.appendChild(row);
+    console.log(row.getBoundingClientRect());
+    container.style.height = row.getBoundingClientRect().width  + "px"
+    console.log("container" + container.getBoundingClientRect().width);
+  }
 }
