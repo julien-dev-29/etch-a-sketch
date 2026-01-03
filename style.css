@@ -159,3 +159,14 @@ input:checked + .slider:before {
 #darken-color-toggler {
   padding-left: 8px;
 }
+
+@media (width > 450px) {
+  .main {
+    padding: 36px;
+    flex-direction: row;
+    gap: 56px;
+  }
+  .container {
+    width: 66%;
+  }
+}
