@@ -34,7 +34,7 @@ darkenColorToggler.addEventListener("change", function () {
   isRandomColor = false;
 });
 
-initGrid(4);
+initGrid(16);
 
 /**
  *
@@ -53,7 +53,7 @@ function changeColor(e) {
     e.target.style.backgroundColor = `rgb(0, 0, 0, ${count})`;
     e.target.dataset["count"] = count;
   } else {
-    e.target.style.backgroundColor = " #29A383";
+    e.target.style.backgroundColor = " #0090FF";
   }
 }
 function handleSubmit() {
