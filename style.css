@@ -2,7 +2,7 @@
   --bg-color: #fcfcfc;
   --bg-interactive: #f0f0f0;
   --bg-blue: #0090ff;
-  --bg-blue-hover: #0588F0;
+  --bg-blue-hover: #0588f0;
   --border: #d9d9d9;
   --color: #202020;
 }
@@ -44,8 +44,9 @@ header h1 {
 }
 
 .options {
-  width: 100%;
+  width: 50%;
   padding: 32px;
+  margin-bottom: 24px;
   border: 1px solid var(--border);
   border-radius: 15px;
   display: flex;
@@ -161,6 +162,16 @@ input:checked + .slider:before {
 }
 
 @media (width > 450px) {
+  .container {
+    width: 50%;
+  }
+
+  .options {
+    flex-direction: row;
+  }
+}
+
+@media (width > 750px) {
   .container {
     width: 33%;
   }
